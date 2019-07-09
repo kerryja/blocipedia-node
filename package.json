@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "set NODE_ENV=test&& jasmine",
-    "start": "nodemon src/server.js"
+		"test": "set NODE_ENV=test&& jasmine",
+		"start": "node src/server.js"
   },
   "repository": {
     "type": "git",
