@@ -4,8 +4,30 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
-	signup(req, res, next) {
+	signUp(req, res, next) {
 		res.render("users/signup");
+	},
+	signInForm(req, res, next) {
+		res.render("users/signin");
+	},
+	signIn(req, res, next) {
+		passport.authenticate("local", (err, user, info) => {
+			if (!user) {
+				req.flash("notice", "Sign in failed. Please try again.")
+				res.redirect("/users/signin");
+			} else {
+				req.flash("notice", "You've successfully signed in!");
+				req.logIn(user, function(err) {
+					if (err) { return next(err); }
+					return res.redirect("/");
+				});
+			}
+		})(req, res, next);
+	},
+	signOut(req, res, next) {
+		req.logout();
+		req.flash("notice", "You've successfully signed out!");
+		res.redirect("/");
 	},
 	create(req, res, next) {
 		let newUser = {
@@ -31,11 +53,14 @@ module.exports = {
 						text: 'The super cool encyclopedia',
 						html: 'The <strong>super</strong> cool encyclopedia',
 					};
-					sgMail.send(msg).catch (sgErr => {
-						console.log (sgErr)
+					sgMail.send(msg).catch(sgErr => {
+						console.log(sgErr)
 					});
 
-					res.redirect("/");
+					req.logIn(user, function(err) {
+						if (err) { return next(err); }
+						return res.redirect("/");
+					});
 				})(req, res, next);
 			}
 		});
