@@ -19,7 +19,7 @@ module.exports = {
 				req.flash("notice", "You've successfully signed in!");
 				req.logIn(user, function(err) {
 					if (err) { return next(err); }
-					return res.redirect("/");
+					return res.redirect("/wikis");
 				});
 			}
 		})(req, res, next);
