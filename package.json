@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/kerryja/blocipedia-node#readme",
   "devDependencies": {
+    "faker": "^4.1.0",
     "jasmine": "^3.4.0",
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.1",
     "request": "^2.88.0"
   },
   "dependencies": {
