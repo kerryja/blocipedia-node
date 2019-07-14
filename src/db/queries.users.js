@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("./models").User;
 const bcrypt = require("bcryptjs");
 
@@ -18,7 +19,35 @@ module.exports = {
     })
     .catch((err) => {
       callback(err);
-    })
-  }
+    });
+  },
 
-}
+  upgrade(id) {
+    return User.findByPk(id)
+      .then(user => {
+        if (!user) {
+          return callback("User does not exist!");
+        } else {
+          return user.update({ role: "premium" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+
+downgrade(id) {
+    return User.findByPk(id)
+      .then(user => {
+        if (!user) {
+          return callback("User does not exist!");
+        } else {
+          return user.update({ role: "standard" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+};
+

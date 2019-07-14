@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../static/partials/head.ejs %>
+</head>
+
+<body>
+  <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+        <% if(currentUser && currentUser.role == "premium") { %>
+          <h1>Are you sure you want to lose all your benefits of being a premium member?</h1>
+    
+                  <form action="/users/downgrade_success" method="post">
+                    <button type="submit" class="btn btn-danger">Downgrade your account!</button>
+                  </form>
+                  <% } %>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+</body>
+</html>

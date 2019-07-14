@@ -29,6 +29,7 @@ module.exports = {
 		req.flash("notice", "You've successfully signed out!");
 		res.redirect("/");
 	},
+	
 	create(req, res, next) {
 		let newUser = {
 			username: req.body.username,
@@ -64,5 +65,51 @@ module.exports = {
 				})(req, res, next);
 			}
 		});
-	}
+	
+	},
+	upgrade(req, res, next) {
+		res.render("users/upgrade", { publishableKey: process.env.STRIPE_PUBLISHABLE_KEY });
+	},
+
+	async upgrade_success(req, res, next) {
+		await userQueries.upgrade(req.user.id);
+		req.flash("notice", "Congratulations! You are now a Premium member!");
+		res.redirect("/");
+	},
+
+	downgrade(req, res, next) {
+		res.render("users/downgrade")
+	},
+
+	async downgrade_success(req, res, next) {
+		await userQueries.downgrade(req.user.id);
+		req.flash("notice", "You are no longer a Premium member");
+		res.redirect("/");
+	},
+
+	async payment(req, res, next) {
+		try {
+			const stripe = require('stripe')(process.env.STRIPE_API_KEY);
+			const session = await stripe.checkout.sessions.create({
+				payment_method_types: ['card'],
+				line_items: [{
+					name: 'Upgrade Blocipedia Membership',
+					description: 'Upgrade your Blocipedia membership from Standard to Premium',
+					amount: 1500,
+					currency: 'usd',
+					quantity: 1,
+				}],
+				success_url: 'http://localhost:3000/users/success',
+				cancel_url: 'http://localhost:3000',  
+			});
+			res.render("stripe/index.ejs", {
+				sessionId: session.id,
+				publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
+			});
+		} catch (error) {
+			console.log (error);
+			req.flash("notice", "Couldn't process Stripe payment");
+			res.redirect("/");
+		}
+	},
 }
