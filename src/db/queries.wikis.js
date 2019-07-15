@@ -30,12 +30,25 @@ module.exports = {
 				private: newWiki.private,
 				userId: newWiki.userId
 			})
-				.then((wiki) => {
-					callback(null, wiki);
+			.then((wiki) => {
+				callback(null, wiki);
+			})
+			.catch((err) => {
+				callback(err);
+			});
+	},
+
+	privateToPublic(id) {
+		return Wiki.findAll()
+			.then((wikis) => {
+				wikis.forEach((wiki) => {
+					if (wiki.userId == id && wiki.private == true) {
+						wiki.update({
+							private: false
+						})
+					}
 				})
-				.catch((err) => {
-					callback(err);
-				});
+			})
 	},
 
 	getWiki(id, callback) {

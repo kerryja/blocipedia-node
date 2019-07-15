@@ -46,13 +46,13 @@
               <button type="submit" class="upgrade-button" class="btn btn-danger">Upgrade your account!</button>
             </form>
             <% } %>
-              <% if(currentUser && currentUser.role == "premium") { %>
+              <!-- <% if(currentUser && currentUser.role == "premium") { %>
                 <h1>Are you sure you want to lose all your benefits of being a Premium member?</h2>
                   <h2></h2>
                   <form action="/users/<%=currentUser.id%>/downgrade" method="get">
                     <button type="submit" class="btn btn-danger">Downgrade your account!</button>
                   </form>
-                  <% } %>
+                  <% } %> -->
     </main>
     <% include ../static/partials/baseScripts.ejs %>
 </body>

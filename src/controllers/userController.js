@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis");
 const passport = require("passport");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -83,6 +84,7 @@ module.exports = {
 
 	async downgrade_success(req, res, next) {
 		await userQueries.downgrade(req.user.id);
+		await wikiQueries.privateToPublic(req.user.id);
 		req.flash("notice", "You are no longer a Premium member");
 		res.redirect("/");
 	},
@@ -99,7 +101,7 @@ module.exports = {
 					currency: 'usd',
 					quantity: 1,
 				}],
-				success_url: 'http://localhost:3000/users/success',
+				success_url: 'http://localhost:3000/users/upgrade_success',
 				cancel_url: 'http://localhost:3000',  
 			});
 			res.render("stripe/index.ejs", {

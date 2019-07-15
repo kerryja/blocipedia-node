@@ -19,7 +19,7 @@ module.exports = {
 		let newWiki = {
 			title: req.body.title,
 			body: req.body.body,
-			private: false,
+			private: req.body.private,
 			userId: req.user.id
 		};
 		wikiQueries.addWiki(newWiki, (err, wiki) => {
@@ -29,6 +29,16 @@ module.exports = {
 				res.redirect(303, `/wikis/${wiki.id}`);
 			}
 		});
+	},
+
+	privateIndex(req, res, next) {
+		wikiQueries.getAllWikis((err, wikis) => {
+			if(err) {
+				res.redirect(500, "static.index");
+			} else {
+				res.render("wikis/private", { wikis });
+			}
+		})
 	},
 
 	show(req, res, next) {

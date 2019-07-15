@@ -94,17 +94,6 @@ describe("Wiki", () => {
 		});
 	});
 
-	// describe("GET /wikis:id", () => {
-
-	// 	it("should render a view with the selected wiki", done => {
-	// 		request.get(`${base}${this.wiki.id}`, (err, res, body) => {
-	// 			expect(err).toBeNull();
-	// 			expect(body).toContain("Wikis");
-	// 			done();
-	// 		});
-	// 	});
-	// });
-
 	describe("POST /wikis/:id/destroy", () => {
 
 		it("should delete the wiki with the associated ID", (done) => {
@@ -127,4 +116,14 @@ describe("Wiki", () => {
 		});
 
 	});
+
+	describe("GET /wikis", () => {
+		it("should render the wiki index page", done => {
+			request.get(`${base}private`, (err, res, body) => {
+				expect(err).toBeNull();
+				expect(body).toContain("Wikis");
+				done();
+			})
+		})
+	})
 });
