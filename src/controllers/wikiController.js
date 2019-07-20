@@ -23,8 +23,6 @@ module.exports = {
       userId: req.user.id
     };
     wikiQueries.addWiki(newWiki, (err, wiki) => {
-      //   wiki = result["wiki"];
-      //   collaborators = result["collaborators"];
       if (err) {
         res.redirect(500, "/wikis/new");
       } else {
@@ -40,7 +38,7 @@ module.exports = {
       } else {
         res.render("wikis/private", { wikis });
       }
-    });
+    }, true);
   },
 
   show(req, res, next) {
@@ -66,8 +64,6 @@ module.exports = {
 
   edit(req, res, next) {
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      // wiki = result["wiki"];
-      //   collaborators = result["collaborators"];
       if (err || wiki == null) {
         res.redirect(404, "/");
       } else {

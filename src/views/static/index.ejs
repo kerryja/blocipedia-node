@@ -17,34 +17,43 @@
 
 	<!-- Page Content -->
 	<main class="container">
+		<img src="mountain.jpg" />
 
 
 		<!-- Jumbotron Header -->
-		<header class="jumbotron my-4">
-			<h1 class="display-3">Welcome to Blocipedia</h1>
+
+		<div class="hero-image">
+
+			<!-- Page Features -->
+			<!-- <section class="row text-center">
+
+				<section class="col-lg-4">
+					<h4 class="card-title"></h4>
+					<p class="card-text"></p>
+				</section>
+
+				<section class="col-lg-4">
+					<h4 class="card-title"></h4>
+					<p class="card-text"></p>
+				</section>
+
+				<section class="col-lg-4">
+					<h4 class="card-title"></h4>
+					<p class="card-text"></p>
+				</section>
+
+			</section> -->
+		</div>
+
+		<div class="jumbotron my-4">
+			<h1 class="display-3">Kerrypedia</h1>
+			<p>The online encyclopedia where everyone has a say</p>
+			<p></p>
 			<p class="lead"></p>
+			<% if(!currentUser) { %>
 			<a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
-		</header>
-
-		<!-- Page Features -->
-		<section class="row text-center">
-
-			<section class="col-lg-4">
-				<h4 class="card-title"></h4>
-				<p class="card-text"></p>
-			</section>
-
-			<section class="col-lg-4">
-				<h4 class="card-title"></h4>
-				<p class="card-text"></p>
-			</section>
-
-			<section class="col-lg-4">
-				<h4 class="card-title"></h4>
-				<p class="card-text"></p>
-			</section>
-
-		</section>
+			<% } %>
+		</div>
 		<!-- /.row -->
 
 	</main>

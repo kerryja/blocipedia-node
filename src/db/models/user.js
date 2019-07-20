@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
 		User.prototype.isOwner = function () {
 			return this.role === "owner";
 		};
+		User.hasMany(models.Collaborator, {
+			foreignKey: "userId",
+			as: "collaborators"
+		});
 
 	};
 	return User;
