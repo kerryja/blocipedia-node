@@ -120,17 +120,5 @@ module.exports = {
       req.flash("notice", "Couldn't process Stripe payment");
       res.redirect("/");
     }
-  },
-
-  showcollaborator(req, res, next) {
-    userQueries.getUser(req.user.id, (err, result) => {
-      user = result["user"];
-      collaborator = result["collaborator"];
-      if (err || user == null) {
-        res.redirect(404, "/");
-      } else {
-        res.render("users/collaborators", { collaborator });
-      }
-    });
   }
 };

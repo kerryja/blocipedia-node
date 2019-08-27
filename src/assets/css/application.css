@@ -1,6 +1,7 @@
 body,
 html {
   height: 100%;
+  padding-top: 50px;
 }
 
 /* The hero image */

@@ -1,6 +1,7 @@
 require("dotenv").config();
 const Wiki = require("./models").Wiki;
 const Collaborator = require("./models").Collaborator;
+const User = require("./models").User;
 
 module.exports = {
   getAllWikis(callback, includeCollaborators) {
@@ -16,23 +17,25 @@ module.exports = {
       });
   },
 
-  getWiki(id, callback) {
-    return Wiki.findByPk(id).then(wiki => {
-      if (!wiki) {
-        callback(404);
-      } else {
-        result["wiki"] = wiki;
-        Collaborator.scope({ method: ["collaboratorsFor", id] })
-          .findAll()
-          .then(collaborators => {
-            result["collaborators"] = collaborators;
-            callback(null, result);
-          })
-          .catch(err => {
-            callback(err);
-          });
-      }
-    });
+  getWiki(id, callback, includeCollaborators) {
+    let options = {};
+    if (includeCollaborators)
+      options = {
+        include: [
+          {
+            model: Collaborator,
+            as: "collaborators",
+            include: [User]
+          }
+        ]
+      };
+    return Wiki.findByPk(id, options)
+      .then(wiki => {
+        callback(null, wiki);
+      })
+      .catch(err => {
+        callback(err);
+      });
   },
 
   addWiki(newWiki, callback) {
@@ -60,16 +63,6 @@ module.exports = {
         }
       });
     });
-  },
-
-  getWiki(id, callback) {
-    return Wiki.findByPk(id)
-      .then(wiki => {
-        callback(null, wiki);
-      })
-      .catch(err => {
-        callback(err);
-      });
   },
 
   deleteWiki(id, callback) {

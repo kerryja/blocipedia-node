@@ -14,10 +14,10 @@
 
         <% if(wiki.private == true)  { %>
         <h2> Collaborators </h2>
-        <% if(collaborators) { %>
+        <% if(wiki.collaborators) { %>
         <p>
             <ul class="list-group">
-                <% collaborators.forEach((collaborator) => {  %>
+                <% wiki.collaborators.forEach((collaborator) => {  %>
                 <li class="list-group-item">
                     <%= collaborator.User.username %>
                     <% if(currentUser && (currentUser.role === "premium" || currentUser.role === "admin")) { %>

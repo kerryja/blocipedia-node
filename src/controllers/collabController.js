@@ -15,18 +15,22 @@ module.exports = {
   },
 
   edit(req, res, next) {
-    wikiQueries.getWiki(req.params.wikiId, (err, result) => {
-      if (err || wiki == null) {
-        res.redirect(404, "/");
-      } else {
-        // const authorized = new Authorizer(req.user, wiki, collaborators).edit();
-        // if (authorized)
-        res.render("collaborators/edit", { wiki, collaborators });
+    wikiQueries.getWiki(
+      req.params.wikiId,
+      (err, wiki) => {
+        if (err || wiki == null) {
+          res.redirect(404, "/");
+        } else {
+          // const authorized = new Authorizer(req.user, wiki, collaborators).edit();
+          // if (authorized)
+          res.render("collaborators/edit", { wiki });
 
-        // req.flash("You are not authorized to do that.");
-        // res.redirect(`/wikis/${req.params.wikiId}`);
-      }
-    });
+          // req.flash("You are not authorized to do that.");
+          // res.redirect(`/wikis/${req.params.wikiId}`);
+        }
+      },
+      true
+    );
   },
 
   remove(req, res, next) {
