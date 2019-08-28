@@ -20,8 +20,8 @@
       <% wikis.forEach((wiki) => { %>
       <% if(wiki.private === true
         && currentUser
-        && currentUser.role === "premium"
-        && (wiki.userId === currentUser.id || wiki.collaborators.find(collab => collab.userId === currentUser.id))) { %>
+        && (wiki.userId === currentUser.id || wiki.collaborators.find(collab => collab.userId === currentUser.id))
+        ) { %>
       <li class="list-group-item">
         <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
         <% if(currentUser && (currentUser.id == wiki.userId || currentUser && currentUser.role === "admin")) { %>

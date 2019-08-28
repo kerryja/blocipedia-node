@@ -9,7 +9,7 @@ module.exports = {
       } else {
         res.render("wikis/index", { wikis: wikis });
       }
-    });
+    }, true);
   },
   new(req, res, next) {
     res.render("wikis/new");
