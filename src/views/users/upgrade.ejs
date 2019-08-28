@@ -2,58 +2,55 @@
 <html lang="en">
 
 <head>
-  <% include ../static/partials/head.ejs %>
+	<% include ../static/partials/head.ejs %>
 </head>
 
 <body>
-  <% include ../static/partials/navbar.ejs %>
-    <main class="container">
-      <% include ../static/partials/messages.ejs %>
+	<% include ../static/partials/navbar.ejs %>
+	<main class="container">
+		<% include ../static/partials/messages.ejs %>
 
-        <% if(currentUser && currentUser.role == "standard") { %>
-          <h1>Become with our Blocipedia premium membership!</h1>
-          <h2>By upgrading today you will be able to:</h2>
+		<% if(currentUser && currentUser.role == "standard") { %>
+		<h1>Become with our Blocipedia premium membership!</h1>
+		<h2>By upgrading today you will be able to:</h2>
 
-          <section class="row text-center">
+		<section class="row text-center">
 
 			<section class="col-lg-4">
 				<div class="card">
-				<div class="card-title heading">Create private wikis!</div>
-				<p class="card-text paragraph-text">We understand that some articles are not for everyone to see. Create your own private wikis and you choose who you share them with</p>
-				<p class="icons"><i class="far fa-address-card"></i></p>
+					<div class="card-title heading">Create private wikis!</div>
+					<p class="card-text paragraph-text">We understand that some articles are not for everyone to see.
+						Create your own private wikis and you choose who you share them with</p>
+					<p class="icons"><i class="far fa-address-card"></i></p>
 				</div>
 			</section>
 
 			<section class="col-lg-4">
 				<div class="card">
-				<div class="card-title heading">Collaborate with other premium members</div>
-				<p class="card-text paragraph-text">Meet other members and work together to create some epic wikis!</p>
-				<p class="icons"><i class="far fa-comment"></i></p>
-			</div>
+					<div class="card-title heading">Collaborate with other premium members</div>
+					<p class="card-text paragraph-text">Meet other members and work together to create some epic wikis!
+					</p>
+					<p class="icons"><i class="far fa-comment"></i></p>
+				</div>
 			</section>
 
 			<section class="col-lg-4">
 				<div class="card">
-				<div class="card-title heading">Experience Blocipedia ads-free</div>
-				<p class="card-text paragraph-text">We want you to enjoy your experience on Blocipedia so we will give you the whole site ads-free!</p>
-				<p class="icons"><i class="fas fa-info"></i></p>
-			</div>
+					<div class="card-title heading">Experience Blocipedia ads-free</div>
+					<p class="card-text paragraph-text">We want you to enjoy your experience on Blocipedia so we will
+						give you the whole site ads-free!</p>
+					<p class="icons"><i class="fas fa-info"></i></p>
+				</div>
 			</section>
 
 		</section>
-           
-            <form action="/users/<%=currentUser.id%>/upgrade" method="get">
-              <button type="submit" class="upgrade-button" class="btn btn-danger">Upgrade your account!</button>
-            </form>
-            <% } %>
-              <!-- <% if(currentUser && currentUser.role == "premium") { %>
-                <h1>Are you sure you want to lose all your benefits of being a Premium member?</h2>
-                  <h2></h2>
-                  <form action="/users/<%=currentUser.id%>/downgrade" method="get">
-                    <button type="submit" class="btn btn-danger">Downgrade your account!</button>
-                  </form>
-                  <% } %> -->
-    </main>
-    <% include ../static/partials/baseScripts.ejs %>
+
+		<form action="/users/<%=currentUser.id%>/upgrade" method="get">
+			<button type="submit" class="upgrade-button" class="btn btn-danger">Upgrade your account!</button>
+		</form>
+		<% } %>
+	</main>
+	<% include ../static/partials/baseScripts.ejs %>
 </body>
+
 </html>

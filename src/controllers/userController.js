@@ -108,14 +108,18 @@ module.exports = {
             quantity: 1
           }
         ],
-        success_url: "http://localhost:3000/users/upgrade_success",
-        cancel_url: "http://localhost:3000"
+        success_url:
+          "http://" +
+          (process.env.HOSTNAME || "localhost:3000") +
+          "/users/upgrade_success",
+        cancel_url: "http://" + (process.env.HOSTNAME || "localhost:3000")
       });
       res.render("stripe/index.ejs", {
         sessionId: session.id,
         publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
       });
     } catch (error) {
+      console.log(process.env.HOSTNAME);
       console.log(error);
       req.flash("notice", "Couldn't process Stripe payment");
       res.redirect("/");
